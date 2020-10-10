@@ -5,11 +5,12 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "java",
-            "name": "Debug (Launch)-OPhase2020<website>",
+            "name": "Website generator",
+            "type": "python",
             "request": "launch",
-            "mainClass": "de.team_gecko.ophase2020.Website",
-            "projectName": "website"
+            "program": "${workspaceFolder}/website/src/website.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/website/src"
         }
     ]
 }

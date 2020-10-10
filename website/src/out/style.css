@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+html {
+    background-color: #2a3137;
+}
+body {
+    margin: 0;
+}
+h1, h2, h3, p, a, li {
+    font-family: 'Lato', sans-serif;
+    color: #ddd;
+}
+h1, a {
+    color: #88a900;
+}
+#title {
+    margin: 0;
+    background-color: rgba(0, 0, 0, 0.27);
+    padding: 20px;
+}
+.content {
+    margin: auto;
+}
+.restrict-width {
+    max-width: 800px;
+    padding: 10px;
+}
+#nextup {
+    background-color: rgba(0,0,0,0.25);
+    padding: 20px;
+}
