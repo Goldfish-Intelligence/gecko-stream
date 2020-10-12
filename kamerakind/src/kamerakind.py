@@ -5,6 +5,7 @@ import jinja2
 import datetime
 import pytz
 from dateutil import parser
+from pytchat import LiveChat
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
@@ -79,20 +80,24 @@ def main():
         os.exit(1)
 
     activeYoutubeLink = None
-    createYoutube = yesNoPrompt("Create new YouTube event?")
-    if createYoutube:
+    doCreateYoutubeLink = yesNoPrompt("Create new YouTube event?")
+    if doCreateYoutubeLink:
         activeYoutubeLink = createYoutubeLink(activeEvent)
     else:
         activeYoutubeLink = input("Please paste YouTube link for further processing. Please refer to docs " \
             + "regarding the consequences when this is left empty.\nYouTube Livestream link: ")
     
-    updateWebsite = yesNoPrompt("Regenerate Website?")
-    if updateWebsite:
+    doCreateWebsite = yesNoPrompt("Regenerate Website?")
+    if doCreateWebsite:
         createWebsite(events, activeEvent, activeYoutubeLink)
 
-    createNotifications = yesNoPrompt("Send notifcation for active event and YouTube link?")
-    if createNotifications:
+    doCreateDiscordNotification = yesNoPrompt("Send notifcation for active event and YouTube link?")
+    if doCreateDiscordNotification:
         createDiscordNotification(activeEvent, activeYoutubeLink)
+
+    doPipeYoutubeChat =yesNoPrompt("Start Youtube => Discord Chat bridge?")
+    if doPipeYoutubeChat:
+        pipeYoutubeChat(activeYoutubeLink)
     
 
 def yesNoPrompt(prompt):
@@ -174,6 +179,24 @@ def createDiscordNotification(activeEvent, activeYoutubeLink):
     requests.post(DISCORD_NOTIFICATION_WEBHOOK, json={
         "content": discord_msg
     })
+
+def pipeYoutubeChat(activeYoutubeLink):
+    livechat = LiveChat(activeYoutubeLink)
+    while livechat.is_alive():
+        try:
+            chatdata = livechat.get()
+            for c in chatdata.items:
+                print(f"YT: {c.datetime} [{c.author.name}]- {c.message}")
+                requests.post(DISCORD_CHAT_WEBHOOK, json={
+                    "content": c.message,
+                    "username": f"YT: {c.author.name}"
+                })
+                chatdata.tick()
+        except KeyboardInterrupt:
+            livechat.terminate()
+            break
+    print("Terminated chat bridge.")
+
 
 if __name__ == "__main__":
     main()
