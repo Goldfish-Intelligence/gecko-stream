@@ -8,9 +8,9 @@
             "name": "Website generator",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/website/src/website.py",
+            "program": "${workspaceFolder}/kamerakind/src/kamerakind.py",
             "console": "integratedTerminal",
-            "cwd": "${workspaceFolder}/website/src"
+            "cwd": "${workspaceFolder}/kamerakind/src"
         }
     ]
 }
