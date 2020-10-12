@@ -1,4 +1,5 @@
 out/index.html
 out/script.js
+source.sh
 client_secret.json
 token.pickle
