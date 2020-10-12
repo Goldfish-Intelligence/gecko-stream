@@ -24,7 +24,8 @@ SCOPES = [
 ]
 
 # You can get this from Discord server settings. Then set as environment variable.
-DISCORD_WEBHOOK = os.environ['DISCORD_WEBHOOK']
+DISCORD_NOTIFICATION_WEBHOOK = os.environ['DISCORD_NOTIFICATION_WEBHOOK']
+DISCORD_CHAT_WEBHOOK = os.environ['DISCORD_CHAT_WEBHOOK']
 
 creds = None
 
@@ -170,7 +171,7 @@ def createWebsite(events, activeEvent, activeYoutubeLink):
 def createDiscordNotification(activeEvent, activeYoutubeLink):
     discord_msg = "Wir sind live!\n{}\nGeplanter start: {}\n{}".format(
         activeEvent["summary"], activeEvent["start"]["human"], activeYoutubeLink)
-    requests.post(DISCORD_WEBHOOK, json={
+    requests.post(DISCORD_NOTIFICATION_WEBHOOK, json={
         "content": discord_msg
     })
 
