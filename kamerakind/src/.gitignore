@@ -3,3 +3,4 @@ out/script.js
 source.sh
 client_secret.json
 token.pickle
+.venv/
