@@ -1,8 +1,8 @@
 # Roc-Toolit
 
 > Roc is a toolkit for real-time audio streaming over the network.
-> (GitHub)[https://github.com/roc-streaming/roc-toolkit]
-> (Documentation)[https://roc-streaming.org/toolkit/docs/]
+> [GitHub](https://github.com/roc-streaming/roc-toolkit)
+> [Documentation](https://roc-streaming.org/toolkit/docs/)
 
 The command line tools and pulseaudio are installed on the mixing pc and are
 available in path and the pulseaudio modules are discoverable by pulseaudio.
@@ -47,11 +47,11 @@ data loss. See `roc-recv --help` for more flags.
 
 Playback audio:
 
-> roc-recv -s rtp+rs8m::10001 -r rs8m::10002
+`roc-recv -s rtp+rs8m::10001 -r rs8m::10002`
 
 Save audio to .wav:
 
-> roc-recv -s rtp+rs8m::10001 -r rs8m::10002 --driver=wav --output=out.wav
+`roc-recv -s rtp+rs8m::10001 -r rs8m::10002 --driver=wav --output=out.wav`
 
 ### roc-send
 
@@ -60,11 +60,11 @@ you want to test the local receiver setup. Almost identical to roc-recv.
 
 Send wav file:
 
-> roc-send -s rtp+rs8m:192.168.0.3:10001 -r rs8m:192.168.0.3:10002 -i ./file.wav
+`roc-send -s rtp+rs8m:192.168.0.3:10001 -r rs8m:192.168.0.3:10002 -i ./file.wav`
 
 Capture sound from a specific PulseAudio device:
 
-> roc-send -s rtp+rs8m:192.168.0.3:10001 -r rs8m:192.168.0.3:10002 -d pulseaudio -i <device>
+`roc-send -s rtp+rs8m:192.168.0.3:10001 -r rs8m:192.168.0.3:10002 -d pulseaudio -i <device>`
 
 
 ## Pulseaudio modules
@@ -91,19 +91,21 @@ Roc sink input supports several options:
 
 Here is how you can create a Roc sink input from command line:
 
-> pactl load-module module-roc-sink-input
+`pactl load-module module-roc-sink-input`
 
 Alternatively, you can add this line to /etc/pulse/default.pa to create a Roc sink input automatically at PulseAudio start:
 
-> load-module module-roc-sink-input
+`load-module module-roc-sink-input`
 
 You can then connect the Roc sink input to an audio device (i.e. a sink) via command line:
 
-> # determine Roc sink-input number
-> $ pactl list sink-inputs
->
-> # connect Roc sink-input to a sink
-> $ pactl move-sink-input <roc_sink_input_number> <sink>
+```
+# determine Roc sink-input number
+$ pactl list sink-inputs
+
+# connect Roc sink-input to a sink
+$ pactl move-sink-input <roc_sink_input_number> <sink>
+```
 
 ### Sender
 
@@ -125,13 +127,12 @@ Roc sink supports several options:
 
 Here is how you can create a Roc sink from command line:
 
-> pactl load-module module-roc-sink remote_ip=<receiver_ip>
+`pactl load-module module-roc-sink remote_ip=<receiver_ip>`
 
 Alternatively, you can add this line to /etc/pulse/default.pa to create a Roc sink automatically at PulseAudio start:
 
-> load-module module-roc-sink remote_ip=<receiver_ip>
+`load-module module-roc-sink remote_ip=<receiver_ip>`
 
 You can then connect an audio stream (i.e. a sink input) to the Roc sink via command line:
 
-> pactl move-sink-input <sink_input_number> roc_sender
-
+`pactl move-sink-input <sink_input_number> roc_sender`
