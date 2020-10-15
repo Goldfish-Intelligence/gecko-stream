@@ -1,118 +1,124 @@
 <!DOCTYPE html>
 <html lang="de">
 
-    <head>
-        <title>First Contact Gecko</title>
-        <meta charset="utf-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="style.css">
-        <link rel="stylesheet" type="text/css" href="https://uicdn.toast.com/tui-calendar/latest/tui-calendar.css" />
-    </head>
+<head>
+    <title>Team Gecko</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" type="text/css" href="https://uicdn.toast.com/tui-calendar/latest/tui-calendar.css" />
+</head>
 
-    <body>
-        <h1 id="title">First Contact Gecko</h1>
-        <div class="content restrict-width">
-            <p>Hallo! Willkommen auf der Website der O-Phasengruppe von "FC (Gecko)".</p>
-            <p>
-                Momentan findet die O-Phase des Wintersemsters 2020/2021 statt. Diese Website
-                soll dir waerhenddessen als Uebersicht ueber unser Angebot dienen. Als "Zentrale"
-                dient unser <b>Discord</b>-Server. Dort findet das Gross unsereres digitalen
-                Angebots statt. Neben der Fachschaft bieten auch wir begleitende <b>Livestreams</b>
-                an. Diese stehen dir auch offen wenn du nicht unserer Gruppe zugteilt wurdest.
-                Die <b>Praesenzgruppen</b> sind da um "vor Ort" Kontakte zu knuepfen. Hast du Lust
-                mit uns zu spielen schau doch auf unserem <b>Minecraft</b>-Server vorbei.
-            </p>
+<body>
+    <div id="title">
+        <h1>Team Gecko</h1>
+        <span>
+            <a href="http://discord.team-gecko.de">Discord</a>
+            <a href="http://insta.team-gecko.de">Instagram</a>
+            <a href="http://yt.team-gecko.de">YouTube</a>
+        </span>
+    </div>
+    <div class="content restrict-width">
+        <p>Hallo! Willkommen auf der Webseite der O-Phasengruppe von „FC Gecko“.</p>
+        <p>
+            Momentan findet die O-Phase des Wintersemesters 2020/2021 statt. Diese Webseite soll dir währenddessen als
+            Übersicht über unser Angebot dienen. Als „Zentrale“ dient unser <b>Discord</b>-Server. Dort findet der
+            Großteil unseres digitalen Angebots statt. Neben der Fachschaft bieten auch wir begleitende
+            <b>Livestreams</b> an. Diese stehen dir auch offen, wenn du nicht unserer Gruppe zugeteilt wurdest. Die
+            <b>Präsenzgruppen</b> sind da, um „vor Ort“ Kontakte zu knüpfen. Hast du Lust mit uns zu spielen? Schau doch
+            auf unserem <b>Minecraft</b>-Server vorbei.
+        </p>
 
-            <h2>Stream</h2>
-            <div id="nextup">
-                <p>Naechstes Event: <b>{{ activeEvent.summary }}</b></p>
-                <p>Start: <span class="to-duration">{{ activeEvent.start.human }}</span></p>
-                {% if activeEvent.description %}
-                    <h3>Beschreibung</h3>
-                    <p>{{ activeEvent.description|safe }}</p>
-                {% endif %}
-                <a href="{{ youtubeLink }}">=> Zum Stream</a>
-            </div>
-            <p>
-                Unserere reglmaessigen Streams finden auf YouTube statt. Da die Videos jedoch "unlisted"
-                sind, funktionieren die YouTube Benachrichtigungen nicht. Der Hauptchat ist auf unserem
-                Discord Server. Du darfst ihm gerne zum Chatten beitreten auch wenn du nicht in unserer
-                O-Phasengruppe bist.
-            </p>
-
-            <h2>Streamplan</h2>
-            </div>
-            <div class="content">
-            <div id="calendar-1"></div>
-            <div id="calendar-2"><</div>
-            </div>
-            <div class="content restrict-width">
-            <noscript>
-                <p>
-                    Wenn du Javascript aktivierst, siehst du hier ein schoenes Kalenderwidget
-                    statt dieser schnoeden Auflistung. Die Zeiten sind in ISO 8601 angegeben.
-                    Wenn du dich in Deutschland aufhaelst, bedeutet das, dass du die Zahl hinter
-                    dem "+" noch im Kopf addieren musst.
-                </p>
-                {% for event in events %}
-                    <h3>{{ event.summary }}</h3>
-                    <ul>
-                        <li>Start: {{ event.start.human }}</li>
-                        {% if event.description %}<li>{{ event.description|safe }}</li>{% endif %}
-                    </ul>
-                {% endfor %}
-            </noscript>
-
-            <h2>Discord</h2>
-            <p>
-                Auf unserem Discord Server sind wir beinnahe Non-Stop fuer dich da. Du findest hier
-                3 Bereiche.
-            </p>
-            <p>
-                Solltest du Teile einer Kleingruppe bei uns sein, gibt es einen Sprach und Textchat
-                verknuepft mit der dir zugeteilten Kleingruppe. Nur Ihr habt hier Zugriff. Ihr koennt
-                Ihn nutzen wie ihr wollt. Nach einem Praesenztreffen hier abhaengen und weiterreden
-                oder zum Beispiel den Textkanal mit der Handy-App damit man sich im Praesenztreffen
-                nicht verliert. 
-            </p>
-            <p>
-                Der allgemeine Teil fasst jeden als Teil einer grossen O-Phasengruppe zusammen. Es gibt
-                Kanaele um Fragen zum Studium zu stellen, andere Menschen aus der O-Phasengruppe
-                kennenzulernen oder um gemeinsam Spiele zu spielen. Dazu noch ein bisschen Verwaltungskram
-                fuer Ankuendigungen, welche die ganze Gruppe betreffen.
-            </p>
-            <p>
-                Eine kleine aber wichtige Ecke fuer unsere Livestreams. Dort findest du unserern primaeren
-                #chat fuer den Livestream. Diesen beobachten wir waehrend die Streams aktiv sind. Hast du
-                eine Nachricht die du fuer wichtig haelst, aber Angst, dass sie in #chat untergeht, kannst
-                du sie auch in #q-and-a mit etwas wichtigerer Prioritaet senden. In #live-notifications
-                schicken wir automatisiert Nachrichten kurz bevor wir live gehen.
-            </p>
-            <p>
-                <b>Pro-Tipp:</b> Auf deinem Rechner oder Handy, oeffne die Einstellungen des
-                #live-notifications Kanal und setze die Benachrichtigungseinstellungen so, dass du
-                fuer jede Nachricht aus dem Kanal eine Notifcation bekommst. Wir versprechen hier nie
-                andere Nachrichten zu senden.
-            </p>
-            <a href="http://example.com">Zum Discord Server</a>
-
-            <h2>Minecraft</h2>
-            <p>
-                Bla bla bla. Minecraft.
-            </p>
-            <p>Server IP: mc.team-gecko.de</p>
-
-            <h2>Kleingruppen</h2>
-            <p>
-                Die Uebersicht zu den Kleingruppen mit den Terminen findest du auf der
-                <a href="https://o-phase.com/de/ws2021/groups/#first-contact-gecko">zentralen O-Phasen
-                Website der Fachschaft</a>.
-            </p>
+        <h2>Stream</h2>
+        <div id="nextup">
+            <p>Nächstes Event: <b>{{ activeEvent.summary }}</b></p>
+            <p>Start: {{ activeEvent.start.human }}</p>
+            <p>Ende (so in etwa): {{ activeEvent.end.human }}</p>
+            {% if activeEvent.description %}
+            <h3>Beschreibung</h3>
+            <p>{{ activeEvent.description|safe }}</p>
+            {% endif %}
+            <a href="{{ youtubeLink }}">=> Zum Stream</a>
         </div>
-    </body>
-    <script src="https://uicdn.toast.com/tui.code-snippet/v1.5.2/tui-code-snippet.min.js"></script>
-    <script src="https://uicdn.toast.com/tui.time-picker/latest/tui-time-picker.min.js"></script>
-    <script src="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.min.js"></script>
-    <script src="https://uicdn.toast.com/tui-calendar/latest/tui-calendar.js"></script>
-    <script src="script.js"></script> 
+        <p>
+            Unsere regelmäßigen Streams finden auf YouTube statt. Da die Videos jedoch ungelistet sind, funktionieren
+            die YouTube-Benachrichtigungen nicht auf Kanalebene, sondern gelten für jeden Stream einzeln. Der Hauptchat
+            ist auf Unserem Discord Server. Du darfst ihn gerne zum Chatten beitreten, auch wenn du nicht in unserer
+            O-Phasengruppe bist.
+        </p>
+
+        <h2>Discord</h2>
+        <p>
+            Auf Unserem Discord Server sind wir beinahe durchgehend für dich da. Du findest hier drei Bereiche.
+        </p>
+        <p>
+            Solltest du Teil einer Kleingruppe bei uns sein, gibt es einen Sprach- und Textchat verknüpft mit der dir
+            zugeteilten Kleingruppe. Nur ihr habt hier Zugriff. Ihr könnt ihn nutzen, wie ihr wollt. Nach einem
+            Präsenztreffen hier abhängen und weiter reden oder zum Beispiel den Textkanal mit der Handy-App, damit man
+            sich im Präsenztreffen nicht verliert.
+        </p>
+        <p>
+            Der allgemeine Teil fasst jeden als Teil einer großen O-Phasengruppe zusammen. Es gibt Kanäle, um Fragen zum
+            Studium zu stellen, andere Menschen aus der O-Phasengruppe kennenzulernen oder um gemeinsam Spiele zu
+            spielen. Dazu noch ein bisschen Verwaltungskram für Ankündigungen, welche die ganze Gruppe betreffen.
+        </p>
+        <p>
+            Eine kleine aber wichtige Ecke für unsere Livestreams. Dort findest du unseren primären #chat für den
+            Livestream. Diesen beobachten wir während die Streams aktiv sind. Hast du eine Nachricht, die du für wichtig
+            hältst, aber Angst, dass sie in #chat untergeht, kannst du sie auch in #q-and-a mit etwas wichtigerer
+            Priorität senden. In #live-notifications schicken wir automatisiert Nachrichten, kurz bevor wir live gehen.
+        </p>
+        <p>
+            <b>Pro-Tipp:</b> Auf deinem Rechner oder Handy, öffne die Einstellungen des #live-notifications Kanal und
+            setze die Benachrichtigungseinstellungen so, dass du für jede Nachricht aus dem Kanal eine Benachrichtigung
+            bekommst. Wir versprechen hier nie andere Nachrichten zu senden.
+        </p>
+        <a href="http://discord.team-gecko.de">Zum Discord Server</a>
+
+        <h2>Minecraft</h2>
+        <p>
+            Wir haben auch einen Minecraft Server! Hier könnt ihr mit anderen Leuten große Bauwerke errichten oder
+            einfach etwas vor euch hin spielen. Wie auch auf den Discord Server, gilt: Nett sein. Der Server läuft auf
+            der Minecraft Version 1.16.3.
+        </p>
+        <p>Die IP findet ihr auf unserem Discord Server.</p>
+
+        <h2>Kleingruppen</h2>
+        <p>
+            Die Übersicht zu den Kleingruppen mit den Terminen findest du auf der
+            <a href="https://o-phase.com/de/ws2021/groups/#first-contact-gecko">zentralen O-Phasen
+                Website der Fachschaft</a>.
+        </p>
+        <h2>Streamplan</h2>
+
+        <p>[Eine Wochenkalenderansicht ist leider nicht rechtzeitig fertig geworden. Kommt aber in ein paar Tagen.]</p>
+
+        {% if False %}
+        </div>
+        <div class="content">
+            <div id="calendar-1"></div>
+            <div id="calendar-2"></div>
+        </div>
+        <div class="content restrict-width">
+        {% endif %}
+        <div class="left-line">
+            {% for event in events %}
+                {% if event.ignore == False %}
+                    <h3>{{ event.start.human }}</h3>
+                    <p>{{ event.summary }}</p>
+                    {% if event.description %}<p>{{ event.description|safe }}</p>{% endif %}
+                    <p>Ende: {{ event.end.human }}</p>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</body>
+{% if False %}
+<script src="https://uicdn.toast.com/tui.code-snippet/v1.5.2/tui-code-snippet.min.js"></script>
+<script src="https://uicdn.toast.com/tui.time-picker/latest/tui-time-picker.min.js"></script>
+<script src="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.min.js"></script>
+<script src="https://uicdn.toast.com/tui-calendar/latest/tui-calendar.js"></script>
+<script src="script.js"></script>
+{% endif %}
+
 </html>

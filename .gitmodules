@@ -1,0 +1,3 @@
+[submodule "kamerakind/gh-page"]
+	path = kamerakind/gh-page
+	url = git@github.com:Goldfish-Intelligence/team-gecko.de.git

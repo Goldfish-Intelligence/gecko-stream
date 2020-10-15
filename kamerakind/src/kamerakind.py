@@ -10,10 +10,11 @@ from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 import requests
+import locale
 
 # This will be prepended in the YouTube description before the calendar description
 YOUTUBE_HEADER = """
-Hauptchat: ---Dicord link---\n
+Hauptchat: http://dc.team-gecko.de (Dann #chat)\n
 O-Phase 2020 FC Gecko: https://www.o-phase.com https://www.team-gecko.de\n
 \n
 """
@@ -27,6 +28,8 @@ SCOPES = [
 # You can get this from Discord server settings. Then set as environment variable.
 DISCORD_NOTIFICATION_WEBHOOK = os.environ['DISCORD_NOTIFICATION_WEBHOOK']
 DISCORD_CHAT_WEBHOOK = os.environ['DISCORD_CHAT_WEBHOOK']
+
+locale.setlocale(locale.LC_TIME, 'de_DE.utf8')
 
 creds = None
 
@@ -121,7 +124,9 @@ def getStreamEvents():
 
     for event in results:
         event["start"]["human"] = parser.parse(event["start"]["dateTime"]) \
-            .strftime("%-d. Okt %H:%M Uhr (Europa/Berlin)")
+            .strftime("%a %-d. Okt %H:%M Uhr")
+        event["end"]["human"] = parser.parse(event["end"]["dateTime"]) \
+            .strftime("%a %-d. Okt %H:%M Uhr")
 
     return results
 
@@ -131,7 +136,7 @@ def createYoutubeLink(event):
 
     description = YOUTUBE_HEADER
     if "description" in event:
-        for line in event["description"]:
+        for line in event["description"].split('\n'):
             if not line.startswith("//"):
                 description += line + "\n"
 
@@ -165,6 +170,15 @@ def createYoutubeLink(event):
 def createWebsite(events, activeEvent, activeYoutubeLink):
     env = jinja2.Environment(loader=jinja2.FileSystemLoader("templates/"), autoescape=True)
     templates = env.list_templates()
+
+    for event in events:
+        event["ignore"] = False
+        if "description" not in event:
+            continue
+        for line in event["description"].split('\n'):
+            if line.startswith("//ignore") or line.startswith("// ignore"):
+                event["ignore"] = True
+
     context = {
         "events": events,
         "activeEvent": activeEvent,
