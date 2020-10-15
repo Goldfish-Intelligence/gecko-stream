@@ -87,12 +87,15 @@ def main():
     if doCreateYoutubeLink:
         activeYoutubeLink = createYoutubeLink(activeEvent)
     else:
-        activeYoutubeLink = input("Please paste YouTube link for further processing. Please refer to docs " \
-            + "regarding the consequences when this is left empty.\nYouTube Livestream link: ")
+        activeYoutubeLink = input("Please paste YouTube link (not YT Studio / Live Control) for further processing.")
     
     doCreateWebsite = yesNoPrompt("Regenerate Website?")
     if doCreateWebsite:
         createWebsite(events, activeEvent, activeYoutubeLink)
+
+    doPublishWebsite = yesNoPrompt("Publish website?")
+    if doPublishWebsite:
+        publishWebsite()
 
     doCreateDiscordNotification = yesNoPrompt("Send notifcation for active event and YouTube link?")
     if doCreateDiscordNotification:
@@ -165,6 +168,8 @@ def createYoutubeLink(event):
     )
     response = request.execute()
 
+    print("Please visit https://studio.youtube.com/video/{}/livestreaming to complete setup.".format(response["id"]))
+
     return "https://youtu.be/{}".format(response["id"])
 
 def createWebsite(events, activeEvent, activeYoutubeLink):
@@ -187,12 +192,17 @@ def createWebsite(events, activeEvent, activeYoutubeLink):
     for template in templates:
         env.get_template(template).stream(context).dump("out/" + template)
 
+def publishWebsite():
+    os.system("./website_push.sh")
+    print("Published at https://team-gecko.de. GitHub might need a minute to refresh.")
+
 def createDiscordNotification(activeEvent, activeYoutubeLink):
     discord_msg = "Wir sind live!\n{}\nGeplanter start: {}\n{}".format(
         activeEvent["summary"], activeEvent["start"]["human"], activeYoutubeLink)
     requests.post(DISCORD_NOTIFICATION_WEBHOOK, json={
         "content": discord_msg
     })
+
 
 def pipeYoutubeChat(activeYoutubeLink):
     livechat = LiveChat(activeYoutubeLink)
