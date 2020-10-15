@@ -186,7 +186,7 @@ def pipeYoutubeChat(activeYoutubeLink):
         try:
             chatdata = livechat.get()
             for c in chatdata.items:
-                print(f"YT: {c.datetime} [{c.author.name}]- {c.message}")
+                print(f"{c.datetime} [{c.author.name}]- {c.message}")
                 requests.post(DISCORD_CHAT_WEBHOOK, json={
                     "content": c.message,
                     "username": f"YT: {c.author.name}"
