@@ -1,8 +1,7 @@
 Google WebRTC Filter
 ====================
 
-We use an own fork of a pulseaudio plugin that wraps Googles WebRTC audio
-processing framework.
+Maybe update pulseaudio WebRTC filter.
 
 > APM is the audio processing module of WebRTC project in charge of effects like
 > echo cancellation, noise suppression, etc. The purpose of this project is to
