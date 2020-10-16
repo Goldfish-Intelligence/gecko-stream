@@ -20,7 +20,7 @@
   - [ ] Tripod
   - [ ] Long HDMI cable
   - [ ] Elgato capture card (+ USB 3 C to A cable)
- - [ ] B - Camera
+- [ ] B - Camera
   - [ ] Sony A7II
   - [ ] Dummy adapter (with USB wall adapter)
   - [ ] Tripod
