@@ -22,7 +22,7 @@
   - [ ] Elgato capture card (+ USB 3 C to A cable)
 - [ ] B - Camera
   - [ ] Sony A7II
-  - [ ] Dummy adapter (with USB wall adapter)
+  - [ ] Dummy battery adapter (with USB wall adapter)
   - [ ] Tripod
   - [ ] Long HDMI cable
   - [ ] Avermedia capture card (+ USB 3 C to A cable)
