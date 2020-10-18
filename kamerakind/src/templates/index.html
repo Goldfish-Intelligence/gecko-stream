@@ -93,32 +93,31 @@
 
         <p>[Eine Wochenkalenderansicht ist leider nicht rechtzeitig fertig geworden. Kommt aber in ein paar Tagen.]</p>
 
-        {% if False %}
         </div>
         <div class="content">
-            <div id="calendar-1"></div>
-            <div id="calendar-2"></div>
+            <div class="calendar-container"><div id="calendar-1"></div></div>
+            <div class="calendar-container"><div id="calendar-2"></div></div>
         </div>
-        <div class="content restrict-width">
-        {% endif %}
-        <div class="left-line">
-            {% for event in events %}
-                {% if event.ignore == False %}
+        <noscript>
+
+            <div class="content restrict-width">
+                <div class="left-line">
+                    {% for event in events %}
+                    {% if event.ignore == False %}
                     <h3>{{ event.start.human }}</h3>
                     <p>{{ event.summary }}</p>
-                    {% if event.description %}<p>{{ event.description|safe }}</p>{% endif %}
+                    {% if event.description %}<p>{{ event.description }}</p>{% endif %}
                     <p>Ende: {{ event.end.human }}</p>
-                {% endif %}
-            {% endfor %}
-        </div>
-    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </noscript>
 </body>
-{% if False %}
 <script src="https://uicdn.toast.com/tui.code-snippet/v1.5.2/tui-code-snippet.min.js"></script>
 <script src="https://uicdn.toast.com/tui.time-picker/latest/tui-time-picker.min.js"></script>
 <script src="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.min.js"></script>
 <script src="https://uicdn.toast.com/tui-calendar/latest/tui-calendar.js"></script>
 <script src="script.js"></script>
-{% endif %}
 
 </html>

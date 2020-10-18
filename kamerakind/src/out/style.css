@@ -6,7 +6,7 @@ html {
 body {
     margin: 0;
 }
-h1, h2, h3, p, a, li {
+* {
     font-family: 'Lato', sans-serif;
     color: #ddd;
 }
@@ -35,4 +35,34 @@ h1, a {
 .left-line {
     border-left: 2px solid white;
     padding-left: 6px;
+}
+.calendar-container {
+    
+    display: flex;
+    flex-wrap: nowrap; 
+    overflow-x: auto;
+}
+#calendar-1, #calendar-2 {
+    /*height: 900px;*/
+    margin: auto;
+    width: 1200px;
+    flex: 0 0 auto;
+}
+
+.tui-full-calendar-timegrid-timezone {
+    background: none !important;
+}
+.tui-full-calendar-popup-container {
+    background-color: rgba(0, 0, 0, 0.80) !important;
+}
+
+.tui-full-calendar-section-button, .tui-full-calendar-time-guide-creation {
+    display: none !important;
+}
+
+.tui-full-calendar-dayname-container, .tui-full-calendar-timegrid-timezone,
+.tui-full-calendar-splitter, .tui-full-calendar-allday-left,
+.tui-full-calendar-time-date, .tui-full-calendar-timegrid-gridline,
+.tui-full-calendar-weekday-grid-line {
+    border: 1px solid rgba(255,255,255,0.25) !important;
 }

@@ -17,37 +17,56 @@ var calOptions = {
             isReadOnly: true,
             usageStatistics: false
         }]
+    },
+    useDetailPopup: true,
+    theme: {
+        'common.backgroundColor': 'rgba(0,0,0,0.25)'
+        /*
+        'common.border': '1px solid #2a3137',
+        'common.backgroundColor': 'rgba(0,0,0,0.25)',
+        'week.timegridLeft.backgroundColor': 'rgba(255,255,225,0.25)',
+        'week.dayname.borderTop': 'inherit',
+        'week.dayname.borderBottom': 'inherit',
+        'week.dayname.borderLeft': 'inherit',
+        'week.vpanelSplitter.border': 'inherit',
+        'week.daygrid.borderRight': 'inherit',
+        'week.daygridLeft.borderRight': 'inherit',
+        'week.timegridLeft.borderRight': 'inherit',
+        'week.timegridHalfHour.borderBottom': 'inherit',
+        'week.timegridHorizontalLine.borderBottom': 'inherit',*/
     }
 };
 var calendar1 = new tui.Calendar('#calendar-1', calOptions);
 var calendar2 = new tui.Calendar('#calendar-2', calOptions);
-calendar2.setOptions({week: {workweek: true}});
+calendar2.setOptions({ week: { workweek: true } });
 
 calendar1.createSchedules([
     {% for event in events %}
-    {
-        id: "{{ event.id }}",
-        calendarId: "1",
+        {
+            id: "{{ event.id }}",
+            calendarId: "1",
 
-        category: "time",
-        title: "{{ event.summary }}",
-        start: "{{ event.start.dateTime }}",
-        end: "{{ event.end.dateTime }}"
-    },
+            category: "time",
+            title: "{{ event.summary }}",
+            body: `{{ event.description }}`,
+            start: "{{ event.start.dateTime }}",
+            end: "{{ event.end.dateTime }}"
+        },
     {% endfor %}
 ])
 
 calendar2.createSchedules([
     {% for event in events %}
-    {
-        id: "{{ event.id }}",
-        calendarId: "1",
+        {
+            id: "{{ event.id }}",
+            calendarId: "1",
 
-        category: "time",
-        title: "{{ event.summary }}",
-        start: "{{ event.start.dateTime }}",
-        end: "{{ event.end.dateTime }}"
-    },
+            category: "time",
+            title: "{{ event.summary }}",
+            body: `{{ event.description }}`,
+            start: "{{ event.start.dateTime }}",
+            end: "{{ event.end.dateTime }}"
+        },
     {% endfor %}
 ])
 
