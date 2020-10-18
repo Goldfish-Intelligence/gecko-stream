@@ -22,3 +22,19 @@ read the following sections.
  *  [Configuration](https://gavv.github.io/articles/pulseaudio-under-the-hood/#command-line-tools)
  *  [Example setups](https://gavv.github.io/articles/pulseaudio-under-the-hood/#example-setups)
     How to do stuff with diagrams explaining what is happening.
+
+## Getting a named roc receiver
+
+```
+$ pactl load-module module-roc-sink-input local_source_port=10001 local_repair_port=10011
+
+$ pactl list short sink-inputs
+0	alsa_output.pci-0000_00_1f.3.iec958-stereo	module-alsa-card.c	s16le 2ch 44100HzIDLE
+3	alsa_output.pci-0000_01_00.1.hdmi-stereo	module-alsa-card.c	s16le 2ch 44100HzIDLE
+5	alsa_output.pci-0000_07_04.0.analog-stereo	module-alsa-card.c	s16le 2ch 44100HzRUNNING
+15	AAA	module-null-sink.c	s16le 2ch 44100Hz	IDLE
+
+$ pactl load-module module-null-sink sink_name=AAA
+
+$ pacmd update-sink-proplist AAA device.description=AAA
+```
