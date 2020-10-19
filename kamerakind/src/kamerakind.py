@@ -130,6 +130,14 @@ def getStreamEvents():
             .strftime("%a %-d. Okt %H:%M Uhr")
         event["end"]["human"] = parser.parse(event["end"]["dateTime"]) \
             .strftime("%a %-d. Okt %H:%M Uhr")
+        event["calendarBgColor"] = "#0297df"
+        if "colorId" in event:
+            if event["colorId"] == "8":
+                event["calendarBgColor"] = "#616161"
+            if event["colorId"] == "3":
+                event["calendarBgColor"] = "#8e24aa"
+            if event["colorId"] == "1":
+                event["calendarBgColor"] = "#7986cb"
 
     return results
 

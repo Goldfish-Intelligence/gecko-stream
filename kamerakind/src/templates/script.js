@@ -45,6 +45,7 @@ calendar1.createSchedules([
         {
             id: "{{ event.id }}",
             calendarId: "1",
+            bgColor: "{{ event.calendarBgColor }}",
 
             category: "time",
             title: "{{ event.summary }}",
@@ -60,6 +61,7 @@ calendar2.createSchedules([
         {
             id: "{{ event.id }}",
             calendarId: "1",
+            bgColor: "{{ event.calendarBgColor }}",
 
             category: "time",
             title: "{{ event.summary }}",
