@@ -188,6 +188,20 @@ def createWebsite(events, activeEvent, activeYoutubeLink):
         event["ignore"] = False
         if "description" not in event:
             continue
+        event["descriptionJs"] = ""
+        for line in event["description"].split('\n'):
+            if not line.startswith("//"):
+                event["descriptionJs"] += line + "\n"
+        event["descriptionJs"] = event["descriptionJs"].replace('<br>', '\\n\\n') \
+            .replace('<span>', '') \
+            .replace('</span>', '') \
+            .replace('<ul>', '') \
+            .replace('</ul>', '') \
+            .replace('<li>', '') \
+            .replace('</li>', '') \
+            .replace('<i>', '') \
+            .replace('</i>', '') \
+            .replace('&nbsp', '')
         for line in event["description"].split('\n'):
             if line.startswith("//ignore") or line.startswith("// ignore"):
                 event["ignore"] = True
