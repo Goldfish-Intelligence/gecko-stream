@@ -42,7 +42,7 @@ var calOptions = {
                 htmlResult += "<p class='event-ignore'>Kein YouTube Stream</p>"
             }
             if (schedule.raw.location) {
-                htmlResult += "<a href='" + schedule.raw.location + "'>Aufzeichnung</a><br>"
+                htmlResult += "<a href='" + schedule.raw.location + "'>Zum Livestream</a><br>"
             }
             htmlResult += schedule.body;
 
