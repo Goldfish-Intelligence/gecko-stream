@@ -14,9 +14,9 @@ import locale
 
 # This will be prepended in the YouTube description before the calendar description
 YOUTUBE_HEADER = """
-Hauptchat: http://dc.team-gecko.de (Dann #chat)\n
-O-Phase 2020 FC Gecko: https://www.o-phase.com https://www.team-gecko.de\n
-\n
+Hauptchat: http://dc.team-gecko.de (Dann #chat)
+O-Phase 2020 FC Gecko: https://www.o-phase.com https://www.team-gecko.de
+
 """
 
 # If modifying these scopes, delete the file token.pickle.
@@ -86,8 +86,8 @@ def main():
     doCreateYoutubeLink = yesNoPrompt("Create new YouTube event?")
     if doCreateYoutubeLink:
         activeYoutubeLink = createYoutubeLink(activeEvent)
-    else:
-        activeYoutubeLink = input("Please paste YouTube link (not YT Studio / Live Control) for further processing.")
+    
+    activeYoutubeLink = input("Please paste YouTube link (not YT Studio / Live Control) for further processing.")
     
     doCreateWebsite = yesNoPrompt("Regenerate Website?")
     if doCreateWebsite:
@@ -142,43 +142,20 @@ def getStreamEvents():
     return results
 
 def createYoutubeLink(event):
-    youtube = build(
-        'youtube', 'v3', credentials=creds)
-
+    print()
+    print("Please visit: https://studio.youtube.com/channel/UCsK4yJKprI77q61rWjL1ZYA/livestreaming/manage")
+    print("Press 'STREAM PLANEN' and then 'NEU ERSTELLEN'")
+    print("Copy the following data:")
+    print("TITLE: {}".format(event["summary"]))
+    print("PUBLIC: UNLISTED")
+    print("SCHEDULED START TIME: {} (Check the timezone!)".format(event["start"]["dateTime"]))
     description = YOUTUBE_HEADER
     if "description" in event:
         for line in event["description"].split('\n'):
             if not line.startswith("//"):
                 description += line + "\n"
-
-    request = youtube.liveBroadcasts().insert(
-        part="snippet,contentDetails,status",
-        body={
-          "contentDetails": {
-            "enableAutoStart": True,
-            "enableDvr": True,
-            "enableAutoStop": True,
-            "monitorStream": {
-              "enableMonitorStream": False
-            },
-            "enableLowLatency": False
-          },
-          "snippet": {
-            "title": event["summary"],
-            "scheduledStartTime": event["start"]["dateTime"],
-            "description": description
-          },
-          "status": {
-            "privacyStatus": "unlisted",
-            "selfDeclaredMadeForKids": False
-          }
-        }
-    )
-    response = request.execute()
-
-    print("Please visit https://studio.youtube.com/video/{}/livestreaming to complete setup.".format(response["id"]))
-
-    return "https://youtu.be/{}".format(response["id"])
+    print("DESCRIPTION: (Ignore borken formatting after paste)\n{}\nEND_OF_DESCRIPTION".format(description))
+    print()
 
 def createWebsite(events, activeEvent, activeYoutubeLink):
     env = jinja2.Environment(loader=jinja2.FileSystemLoader("templates/"), autoescape=True)
