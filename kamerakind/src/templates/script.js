@@ -34,6 +34,20 @@ var calOptions = {
         'week.timegridLeft.borderRight': 'inherit',
         'week.timegridHalfHour.borderBottom': 'inherit',
         'week.timegridHorizontalLine.borderBottom': 'inherit',*/
+    },
+    template: {
+        popupDetailBody: function(schedule) {
+            htmlResult = "";
+            if (schedule.raw.ignore) {
+                htmlResult += "<p class='event-ignore'>Kein YouTube Stream</p>"
+            }
+            if (schedule.raw.location) {
+                htmlResult += "<a href='" + schedule.raw.location + "'>Aufzeichnung</a><br>"
+            }
+            htmlResult += schedule.body;
+
+            return htmlResult;
+        }
     }
 };
 var calendar1 = new tui.Calendar('#calendar-1', calOptions);
@@ -49,7 +63,13 @@ calendar1.createSchedules([
 
             category: "time",
             title: "{{ event.summary }}",
-            body: `{{ event.description }}`,
+            body: `{{ event.description | safe }}`,
+            raw: {
+                ignore: {{ event.ignore | tojson }},
+                {% if event.location %}
+                    location: "{{ event.location }}"
+                {% endif %}
+            },
             start: "{{ event.start.dateTime }}",
             end: "{{ event.end.dateTime }}"
         },
@@ -65,7 +85,10 @@ calendar2.createSchedules([
 
             category: "time",
             title: "{{ event.summary }}",
-            body: `{{ event.description }}`,
+            body: `{{ event.description | safe }}`,
+            raw: {
+                ignore: {{ event.ignore | tojson }}
+            },
             start: "{{ event.start.dateTime }}",
             end: "{{ event.end.dateTime }}"
         },

@@ -1,9 +1,9 @@
 import os
 import pickle
-from re import template
 import jinja2
 import datetime
 import pytz
+import json
 from dateutil import parser
 from pytchat import LiveChat
 from googleapiclient.discovery import build
@@ -182,29 +182,14 @@ def createYoutubeLink(event):
 
 def createWebsite(events, activeEvent, activeYoutubeLink):
     env = jinja2.Environment(loader=jinja2.FileSystemLoader("templates/"), autoescape=True)
+    env.filters['tojson'] = json.dumps
     templates = env.list_templates()
 
     for event in events:
         event["ignore"] = False
-        if "description" not in event:
-            continue
-        event["descriptionJs"] = ""
-        for line in event["description"].split('\n'):
-            if not line.startswith("//"):
-                event["descriptionJs"] += line + "\n"
-        event["descriptionJs"] = event["descriptionJs"].replace('<br>', '\\n\\n') \
-            .replace('<span>', '') \
-            .replace('</span>', '') \
-            .replace('<ul>', '') \
-            .replace('</ul>', '') \
-            .replace('<li>', '') \
-            .replace('</li>', '') \
-            .replace('<i>', '') \
-            .replace('</i>', '') \
-            .replace('&nbsp', '')
-        for line in event["description"].split('\n'):
-            if line.startswith("//ignore") or line.startswith("// ignore"):
-                event["ignore"] = True
+        if "//ignore" in event["description"]:
+            event["ignore"] = True
+        event["description"] = event["description"].replace('//ignore', '')
 
     context = {
         "events": events,
