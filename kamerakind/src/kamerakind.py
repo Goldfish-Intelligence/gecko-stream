@@ -14,7 +14,7 @@ import locale
 
 # This will be prepended in the YouTube description before the calendar description
 YOUTUBE_HEADER = """
-Hauptchat: http://dc.team-gecko.de (Dann #chat)\n
+Hauptchat: http://dc.team-gecko.de (Dann #streamchat)\n
 O-Phase 2020 FC Gecko: https://www.o-phase.com https://www.team-gecko.de\n
 \n
 """
@@ -56,6 +56,9 @@ def main():
     futureEvent = None
     now = datetime.datetime.now(pytz.timezone("Europe/Berlin"))
     for event in events:
+        skip = False
+        if "//ignore" in event["description"] or "// ignore" in event["description"]:
+            continue
         startTime = parser.parse(event["start"]["dateTime"])
         if startTime < now:
             previousEvent = event
@@ -158,6 +161,7 @@ def createYoutubeLink(event):
             "enableAutoStart": True,
             "enableDvr": True,
             "enableAutoStop": True,
+            "latencyPreference": "low",
             "monitorStream": {
               "enableMonitorStream": False
             },
@@ -219,7 +223,7 @@ def publishWebsite():
     print("Published at https://team-gecko.de. GitHub might need a minute to refresh.")
 
 def createDiscordNotification(activeEvent, activeYoutubeLink):
-    discord_msg = "Wir sind live!\n{}\nGeplanter start: {}\n{}".format(
+    discord_msg = "Wir sind gleich live!\n{}\nGeplanter start: {}\n{}".format(
         activeEvent["summary"], activeEvent["start"]["human"], activeYoutubeLink)
     requests.post(DISCORD_NOTIFICATION_WEBHOOK, json={
         "content": discord_msg

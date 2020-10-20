@@ -41,9 +41,10 @@ h1, a {
     display: flex;
     flex-wrap: nowrap; 
     overflow-x: auto;
+    overflow-y: clip;
 }
 #calendar-1, #calendar-2 {
-    /*height: 900px;*/
+    height: 820px;
     margin: auto;
     width: 1200px;
     flex: 0 0 auto;

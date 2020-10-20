@@ -10,7 +10,7 @@ var calOptions = {
         startDayOfWeek: 1,
         daynames: ["sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"],
         hourStart: 10,
-        hourEnd: 22,
+        hourEnd: 24,
         timezones: [{
             timezoneOffset: null,
             displayLabel: "Zeitzone Browser",
@@ -49,7 +49,7 @@ calendar1.createSchedules([
 
             category: "time",
             title: "{{ event.summary }}",
-            body: `{{ event.description }}`,
+            body: `{{ event.descriptionJs }}`,
             start: "{{ event.start.dateTime }}",
             end: "{{ event.end.dateTime }}"
         },
@@ -65,7 +65,7 @@ calendar2.createSchedules([
 
             category: "time",
             title: "{{ event.summary }}",
-            body: `{{ event.description }}`,
+            body: `{{ event.descriptionJs }}`,
             start: "{{ event.start.dateTime }}",
             end: "{{ event.end.dateTime }}"
         },
