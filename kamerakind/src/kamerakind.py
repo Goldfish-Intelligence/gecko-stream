@@ -14,7 +14,7 @@ import locale
 
 # This will be prepended in the YouTube description before the calendar description
 YOUTUBE_HEADER = """
-Hauptchat: http://dc.team-gecko.de (Dann #chat)
+Hauptchat: http://dc.team-gecko.de (Dann #streamchat)
 O-Phase 2020 FC Gecko: https://www.o-phase.com https://www.team-gecko.de
 
 """
