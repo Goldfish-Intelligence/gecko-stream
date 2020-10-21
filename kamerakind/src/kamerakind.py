@@ -1,9 +1,9 @@
 import os
 import pickle
-from re import template
 import jinja2
 import datetime
 import pytz
+import json
 from dateutil import parser
 from pytchat import LiveChat
 from googleapiclient.discovery import build
@@ -14,9 +14,9 @@ import locale
 
 # This will be prepended in the YouTube description before the calendar description
 YOUTUBE_HEADER = """
-Hauptchat: http://dc.team-gecko.de (Dann #streamchat)\n
-O-Phase 2020 FC Gecko: https://www.o-phase.com https://www.team-gecko.de\n
-\n
+Hauptchat: http://dc.team-gecko.de (Dann #chat)
+O-Phase 2020 FC Gecko: https://www.o-phase.com https://www.team-gecko.de
+
 """
 
 # If modifying these scopes, delete the file token.pickle.
@@ -89,8 +89,8 @@ def main():
     doCreateYoutubeLink = yesNoPrompt("Create new YouTube event?")
     if doCreateYoutubeLink:
         activeYoutubeLink = createYoutubeLink(activeEvent)
-    else:
-        activeYoutubeLink = input("Please paste YouTube link (not YT Studio / Live Control) for further processing.")
+    
+    activeYoutubeLink = input("Please paste YouTube link (not YT Studio / Live Control) for further processing.")
     
     doCreateWebsite = yesNoPrompt("Regenerate Website?")
     if doCreateWebsite:
@@ -145,70 +145,31 @@ def getStreamEvents():
     return results
 
 def createYoutubeLink(event):
-    youtube = build(
-        'youtube', 'v3', credentials=creds)
-
+    print()
+    print("Please visit: https://studio.youtube.com/channel/UCsK4yJKprI77q61rWjL1ZYA/livestreaming/manage")
+    print("Press 'STREAM PLANEN' and then 'NEU ERSTELLEN'")
+    print("Copy the following data:")
+    print("TITLE: {}".format(event["summary"]))
+    print("PUBLIC: UNLISTED")
+    print("SCHEDULED START TIME: {} (Check the timezone!)".format(event["start"]["dateTime"]))
     description = YOUTUBE_HEADER
     if "description" in event:
         for line in event["description"].split('\n'):
             if not line.startswith("//"):
                 description += line + "\n"
-
-    request = youtube.liveBroadcasts().insert(
-        part="snippet,contentDetails,status",
-        body={
-          "contentDetails": {
-            "enableAutoStart": True,
-            "enableDvr": True,
-            "enableAutoStop": True,
-            "latencyPreference": "low",
-            "monitorStream": {
-              "enableMonitorStream": False
-            },
-            "enableLowLatency": False
-          },
-          "snippet": {
-            "title": event["summary"],
-            "scheduledStartTime": event["start"]["dateTime"],
-            "description": description
-          },
-          "status": {
-            "privacyStatus": "unlisted",
-            "selfDeclaredMadeForKids": False
-          }
-        }
-    )
-    response = request.execute()
-
-    print("Please visit https://studio.youtube.com/video/{}/livestreaming to complete setup.".format(response["id"]))
-
-    return "https://youtu.be/{}".format(response["id"])
+    print("DESCRIPTION: (Ignore borken formatting after paste)\n{}\nEND_OF_DESCRIPTION".format(description))
+    print()
 
 def createWebsite(events, activeEvent, activeYoutubeLink):
     env = jinja2.Environment(loader=jinja2.FileSystemLoader("templates/"), autoescape=True)
+    env.filters['tojson'] = json.dumps
     templates = env.list_templates()
 
     for event in events:
         event["ignore"] = False
-        if "description" not in event:
-            continue
-        event["descriptionJs"] = ""
-        for line in event["description"].split('\n'):
-            if not line.startswith("//"):
-                event["descriptionJs"] += line + "\n"
-        event["descriptionJs"] = event["descriptionJs"].replace('<br>', '\\n\\n') \
-            .replace('<span>', '') \
-            .replace('</span>', '') \
-            .replace('<ul>', '') \
-            .replace('</ul>', '') \
-            .replace('<li>', '') \
-            .replace('</li>', '') \
-            .replace('<i>', '') \
-            .replace('</i>', '') \
-            .replace('&nbsp', '')
-        for line in event["description"].split('\n'):
-            if line.startswith("//ignore") or line.startswith("// ignore"):
-                event["ignore"] = True
+        if "//ignore" in event["description"]:
+            event["ignore"] = True
+        event["description"] = event["description"].replace('//ignore', '')
 
     context = {
         "events": events,
