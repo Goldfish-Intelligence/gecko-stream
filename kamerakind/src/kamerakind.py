@@ -124,7 +124,7 @@ def getStreamEvents():
     service = build('calendar', 'v3', credentials=creds)
 
     results = service.events().list(
-        calendarId='93fj10tioa3bq86qtdlcfq3cjs@group.calendar.google.com', maxResults=50, singleEvents=True,
+        calendarId='93fj10tioa3bq86qtdlcfq3cjs@group.calendar.google.com', maxResults=60, singleEvents=True,
         orderBy='startTime', timeMax="2020-11-01T00:00:00+02:00",
         timeMin="2020-10-19T00:00:00+02:00").execute()["items"]
 
