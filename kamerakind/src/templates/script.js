@@ -87,7 +87,10 @@ calendar2.createSchedules([
             title: "{{ event.summary }}",
             body: `{{ event.description | safe }}`,
             raw: {
-                ignore: {{ event.ignore | tojson }}
+                ignore: {{ event.ignore | tojson }},
+                {% if event.location %}
+                    location: "{{ event.location }}"
+                {% endif %}
             },
             start: "{{ event.start.dateTime }}",
             end: "{{ event.end.dateTime }}"
